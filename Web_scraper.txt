@@ -1,0 +1,90 @@
+There are 2 types of  ways to access some websites data :
+* Use the API of the website (if it exists). For example, famous websites have their APIs available to access data from them. You can either go to developer.twitter.com   OR developer.facebook.com .Facebook has the Facebook Graph API which allows retrieval of data posted on Facebook.
+* Access the HTML of the webpage and extract useful information/data from it. This technique is called web scraping .
+
+
+Why Web scraping?
+1. To get the price list from various websites and do competitive prices in your company
+2. Collect News from various websites.
+3. Sentiment Analysis from Twitter.
+4. To analyse Market Trends
+
+Web Scraping : Is a Techniques to get or fetch data from website through HTML get request in a policy compliant manner.
+
+Is it allowed > Why Not?
+From a server’s perspective, requesting a page via web scraping is the same as loading it in a web browser. When we use code to submit these requests, we might be “loading” pages much faster than a regular user, and thus quickly eating up the website owner’s server resources.
+
+This article discusses the steps involved in web scraping using the implementation of a Web Scraping framework of Python called Beautiful Soup and display the data using lightweight library to design HTML pages named Flask
+
+Installs needed:
+A). Requests : Run pip install requests  . The requests module allows us to send http requests to the website we want to scrape.
+B) pandas : import pandas as pd. To save the read data into csv files
+C). BeautifulSOAP : Run pip install beautifulsoap4 . Beautiful Soup is a Python library for pulling data out of HTML and XML files. It works with your favorite parser to provide idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work.
+
+Preparation:
+A).  Find the URL that you want to scrape
+For this example, we are going scrape Flipkart website to extract the Price, Name, and Rating of Laptops. The URL for this page is https://www.flipkart.com/search?q=laptops&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off
+
+B).  Inspecting the Page
+The data is usually nested in tags. So, we inspect the page to see, under which tag the data we want to scrape is nested. To inspect the page, just right click on the element and click on “Inspect”.
+
+
+Here's an outline of the steps we'll follow:
+1. Download the webpage using requests
+2. Parse the HTML source code using beautiful soup
+3. Extract topic names, descriptions and URLs from page
+4. Compile extracted information into Python lists and dictionaries
+5. Extract and combine data from multiple pages
+6. Save the extracted information to a CSV file.
+
+
+
+
+Step 0:
+Import pandas as pd
+from bs4 import BeautifulSoup
+import requests
+
+Step 1: 
+The first thing we’ll need to do to scrape a web page is to download the page. We can download pages using the Python requests library.
+response =requests.get(‘https://github.com/topics’)
+print(response.status_code)
+>>It should return 200 , if successfully downloads the page
+
+This object has a status_code property, which indicates if the page was downloaded successfully:
+print(page.status_code)
+A status_code response of 200 means that response was loaded successfully.
+
+We can print out the HTML content of the page using the content property:
+page = response.text
+
+
+
+Step2: Parsing the page with beautiful soap :
+As you can see above, we now have downloaded an HTML document.
+We can use the BeautifulSoup library to parse this document, and extract the text from tags.
+We first have to import the library, and create an instance of the BeautifulSoup class to parse our document:
+
+from bs4 import BeautifulSoup
+doc = BeautifulSoup(page, 'html.parser')
+
+##print title of the page
+print(doc.find('title’))
+
+
+Future Work
+* We can now fetch individual topic pages, and get the list of top repositories for each topic
+* We can scrape the repository page to get additional information about each repository
+* We can analyze this data to ..
+etc. etc.
+
+
+
+Remember, though, that web scraping consumes server resources for the host website. If we’re just scraping one page once, that isn’t going to cause a problem. But if our code is scraping 1,000 pages once every ten minutes, that could quickly get expensive for the website owner.
+
+Note : A Web Application Framework or a simply a Web Framework represents a collection of libraries and modules that enable web application developers to write applications without worrying about low-level details such as protocol, thread management, and so on.
+
+
+
+
+
